@@ -59,7 +59,7 @@ impl Stylist {
         // FIXME: Add iso-8859-9.css when the document’s encoding is ISO-8859-8.
         // FIXME: presentational-hints.css should be at author origin with zero specificity.
         //        (Does it make a difference?)
-        for &filename in &["user-agent.css", "servo.css", "presentational-hints.css"] {
+        for &filename in &["user-agent.css", "mathml.css", "servo.css", "presentational-hints.css"] {
             match read_resource_file(&[filename]) {
                 Ok(res) => {
                     let ua_stylesheet = Stylesheet::from_bytes(

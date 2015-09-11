@@ -303,6 +303,8 @@ pub mod htmlvideoelement;
 pub mod imagedata;
 pub mod keyboardevent;
 pub mod location;
+pub mod mathmlelement;
+pub mod mathmlmathelement;
 pub mod messageevent;
 pub mod mouseevent;
 pub mod namednodemap;

@@ -46,6 +46,7 @@ use dom::htmlelement::HTMLElementTypeId;
 use dom::htmlinputelement::{HTMLInputElement, RawLayoutHTMLInputElementHelpers};
 use dom::htmltableelement::HTMLTableElement;
 use dom::htmltextareaelement::RawLayoutHTMLTextAreaElementHelpers;
+use dom::mathmlelement::MathMLElementTypeId;
 use dom::namednodemap::NamedNodeMap;
 use dom::node::{CLICK_IN_PROGRESS, LayoutNodeHelpers, Node, NodeTypeId, SEQUENTIALLY_FOCUSABLE};
 use dom::node::{NodeDamage, document_from_node};
@@ -110,6 +111,7 @@ impl PartialEq for Element {
 #[derive(Copy, Clone, PartialEq, Debug)]
 pub enum ElementTypeId {
     HTMLElement(HTMLElementTypeId),
+    MathMLElement(MathMLElementTypeId),
     Element,
 }
 
