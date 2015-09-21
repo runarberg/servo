@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use dom::bindings::codegen::Bindings::MathMLMathElementBinding;
+use dom::bindings::codegen::Bindings::MathMLMathElementBinding::MathMLMathElementMethods;
 use dom::bindings::codegen::InheritTypes::MathMLMathElementDerived;
 use dom::bindings::js::Root;
 use dom::document::Document;
@@ -44,4 +45,9 @@ impl MathMLMathElement {
         let element = MathMLMathElement::new_inherited(localName, prefix, document);
         Node::reflect_node(box element, document, MathMLMathElementBinding::Wrap)
     }
+}
+
+impl MathMLMathElementMethods for MathMLMathElement {
+    make_enumerated_getter!(Display, "inline", ("block"));
+    make_setter!(SetDisplay, "display");
 }
