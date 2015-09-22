@@ -250,6 +250,10 @@ pub fn heap_size_of_eventtarget(target: &EventTarget) -> usize {
         ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLPresentationElement(
         MathMLPresentationElementTypeId::MathMLPresentationElement)))) =>
             heap_size_of_self_and_children(MathMLPresentationElementCast::to_ref(target).unwrap()),
+        &EventTargetTypeId::Node(NodeTypeId::Element(
+        ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLPresentationElement(
+        MathMLPresentationElementTypeId::MathMLPresentationToken)))) =>
+            heap_size_of_self_and_children(MathMLPresentationTokenCast::to_ref(target).unwrap()),
         &EventTargetTypeId::WebSocket => 0,
         &EventTargetTypeId::Worker => 0,
         &EventTargetTypeId::FileReader => 0,

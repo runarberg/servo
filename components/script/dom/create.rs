@@ -77,6 +77,7 @@ use dom::htmlunknownelement::HTMLUnknownElement;
 use dom::htmlvideoelement::HTMLVideoElement;
 use dom::mathmlelement::MathMLElement;
 use dom::mathmlmathelement::MathMLMathElement;
+use dom::mathmlpresentationtoken::MathMLPresentationToken;
 use std::borrow::ToOwned;
 use string_cache::{Atom, QualName};
 
@@ -99,6 +100,9 @@ pub fn create_element(name: QualName, prefix: Option<Atom>,
     if name.ns == ns!(MathML) {
         return match name.local {
             atom!("math")  => make!(MathMLMathElement),
+            atom!("mi")    => make!(MathMLPresentationToken),
+            atom!("mn")    => make!(MathMLPresentationToken),
+            atom!("mtext") => make!(MathMLPresentationToken),
             _              => make!(MathMLElement),
         };
     }

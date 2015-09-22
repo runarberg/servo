@@ -64,6 +64,8 @@ impl MathMLPresentationElement {
 #[derive(JSTraceable, Copy, Clone, Debug, HeapSizeOf)]
 pub enum MathMLPresentationElementTypeId {
     MathMLPresentationElement,
+
+    MathMLPresentationToken,
 }
 
 impl PartialEq for MathMLPresentationElementTypeId {
