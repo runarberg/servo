@@ -3,13 +3,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use dom::bindings::codegen::Bindings::MathMLElementBinding;
-use dom::bindings::codegen::InheritTypes::MathMLElementDerived;
+use dom::bindings::codegen::InheritTypes::{ElementCast, MathMLElementDerived};
 use dom::bindings::js::Root;
+use dom::bindings::utils::Reflectable;
 use dom::document::Document;
 use dom::element::Element;
 use dom::element::ElementTypeId;
 use dom::eventtarget::{EventTarget, EventTargetTypeId};
 use dom::node::{Node, NodeTypeId};
+use dom::virtualmethods::VirtualMethods;
 
 use util::str::DOMString;
 
@@ -70,5 +72,12 @@ impl PartialEq for MathMLElementTypeId {
         unsafe {
             intrinsics::discriminant_value(self) == intrinsics::discriminant_value(other)
         }
+    }
+}
+
+impl VirtualMethods for MathMLElement {
+    fn super_type<'b>(&'b self) -> Option<&'b VirtualMethods> {
+        let element: &Element = ElementCast::from_ref(self);
+        Some(element as &VirtualMethods)
     }
 }

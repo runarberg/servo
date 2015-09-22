@@ -33,6 +33,7 @@ use dom::bindings::codegen::InheritTypes::HTMLTableSectionElementCast;
 use dom::bindings::codegen::InheritTypes::HTMLTemplateElementCast;
 use dom::bindings::codegen::InheritTypes::HTMLTextAreaElementCast;
 use dom::bindings::codegen::InheritTypes::HTMLTitleElementCast;
+use dom::bindings::codegen::InheritTypes::MathMLElementCast;
 use dom::document::Document;
 use dom::element::{AttributeMutation, ElementTypeId};
 use dom::event::Event;
@@ -233,6 +234,10 @@ pub fn vtable_for<'a>(node: &'a Node) -> &'a (VirtualMethods + 'a) {
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLTitleElement)) => {
             let element =
                 HTMLTitleElementCast::to_ref(node).unwrap();
+            element as &'a (VirtualMethods + 'a)
+        }
+        NodeTypeId::Element(ElementTypeId::MathMLElement(_)) => {
+            let element = MathMLElementCast::to_ref(node).unwrap();
             element as &'a (VirtualMethods + 'a)
         }
         NodeTypeId::Element(ElementTypeId::Element) => {

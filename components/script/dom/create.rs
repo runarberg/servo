@@ -75,6 +75,8 @@ use dom::htmltrackelement::HTMLTrackElement;
 use dom::htmlulistelement::HTMLUListElement;
 use dom::htmlunknownelement::HTMLUnknownElement;
 use dom::htmlvideoelement::HTMLVideoElement;
+use dom::mathmlelement::MathMLElement;
+use dom::mathmlmathelement::MathMLMathElement;
 use std::borrow::ToOwned;
 use string_cache::{Atom, QualName};
 
@@ -82,10 +84,6 @@ pub fn create_element(name: QualName, prefix: Option<Atom>,
                       document: &Document, creator: ElementCreator)
                       -> Root<Element> {
     let prefix = prefix.map(|p| (*p).to_owned());
-
-    if name.ns != ns!(HTML) {
-        return Element::new((*name.local).to_owned(), name.ns, prefix, document);
-    }
 
     macro_rules! make(
         ($ctor:ident) => ({
@@ -97,6 +95,17 @@ pub fn create_element(name: QualName, prefix: Option<Atom>,
             ElementCast::from_root(obj)
         })
     );
+
+    if name.ns == ns!(MathML) {
+        return match name.local {
+            atom!("math")  => make!(MathMLMathElement),
+            _              => make!(MathMLElement),
+        };
+    }
+
+    if name.ns != ns!(HTML) {
+        return Element::new((*name.local).to_owned(), name.ns, prefix, document);
+    }
 
     // This is a big match, and the IDs for inline-interned atoms are not very structured.
     // Perhaps we should build a perfect hash from those IDs instead.
