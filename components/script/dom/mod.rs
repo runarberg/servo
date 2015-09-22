@@ -305,6 +305,7 @@ pub mod keyboardevent;
 pub mod location;
 pub mod mathmlelement;
 pub mod mathmlmathelement;
+pub mod mathmlpresentationelement;
 pub mod messageevent;
 pub mod mouseevent;
 pub mod namednodemap;

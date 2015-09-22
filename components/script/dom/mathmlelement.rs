@@ -10,6 +10,7 @@ use dom::document::Document;
 use dom::element::Element;
 use dom::element::ElementTypeId;
 use dom::eventtarget::{EventTarget, EventTargetTypeId};
+use dom::mathmlpresentationelement::MathMLPresentationElementTypeId;
 use dom::node::{Node, NodeTypeId};
 use dom::virtualmethods::VirtualMethods;
 
@@ -61,9 +62,10 @@ impl MathMLElement {
 
 #[derive(JSTraceable, Copy, Clone, Debug, HeapSizeOf)]
 pub enum MathMLElementTypeId {
-    MathMLElement,
+    MathMLPresentationElement(MathMLPresentationElementTypeId),
 
-    MathMLMathElement
+    MathMLElement,
+    MathMLMathElement,
 }
 
 impl PartialEq for MathMLElementTypeId {

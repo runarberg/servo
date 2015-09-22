@@ -13,6 +13,7 @@ use dom::htmlmediaelement::HTMLMediaElementTypeId::HTMLVideoElement;
 use dom::htmltablecellelement::HTMLTableCellElementTypeId::HTMLTableDataCellElement;
 use dom::htmltablecellelement::HTMLTableCellElementTypeId::HTMLTableHeaderCellElement;
 use dom::mathmlelement::MathMLElementTypeId;
+use dom::mathmlpresentationelement::MathMLPresentationElementTypeId;
 use dom::node::NodeTypeId;
 use libc;
 use util::mem::{HeapSizeOf, heap_size_of};
@@ -245,6 +246,10 @@ pub fn heap_size_of_eventtarget(target: &EventTarget) -> usize {
         &EventTargetTypeId::Node(NodeTypeId::Element(
         ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLMathElement))) =>
             heap_size_of_self_and_children(MathMLMathElementCast::to_ref(target).unwrap()),
+        &EventTargetTypeId::Node(NodeTypeId::Element(
+        ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLPresentationElement(
+        MathMLPresentationElementTypeId::MathMLPresentationElement)))) =>
+            heap_size_of_self_and_children(MathMLPresentationElementCast::to_ref(target).unwrap()),
         &EventTargetTypeId::WebSocket => 0,
         &EventTargetTypeId::Worker => 0,
         &EventTargetTypeId::FileReader => 0,

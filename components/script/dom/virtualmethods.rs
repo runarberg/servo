@@ -34,10 +34,12 @@ use dom::bindings::codegen::InheritTypes::HTMLTemplateElementCast;
 use dom::bindings::codegen::InheritTypes::HTMLTextAreaElementCast;
 use dom::bindings::codegen::InheritTypes::HTMLTitleElementCast;
 use dom::bindings::codegen::InheritTypes::MathMLElementCast;
+use dom::bindings::codegen::InheritTypes::MathMLPresentationElementCast;
 use dom::document::Document;
 use dom::element::{AttributeMutation, ElementTypeId};
 use dom::event::Event;
 use dom::htmlelement::HTMLElementTypeId;
+use dom::mathmlelement::MathMLElementTypeId;
 use dom::node::NodeTypeId;
 use dom::node::{ChildrenMutation, CloneChildrenFlag, Node};
 use string_cache::Atom;
@@ -234,6 +236,11 @@ pub fn vtable_for<'a>(node: &'a Node) -> &'a (VirtualMethods + 'a) {
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLTitleElement)) => {
             let element =
                 HTMLTitleElementCast::to_ref(node).unwrap();
+            element as &'a (VirtualMethods + 'a)
+        }
+        NodeTypeId::Element(ElementTypeId::MathMLElement(
+            MathMLElementTypeId::MathMLPresentationElement(_))) => {
+            let element = MathMLPresentationElementCast::to_ref(node).unwrap();
             element as &'a (VirtualMethods + 'a)
         }
         NodeTypeId::Element(ElementTypeId::MathMLElement(_)) => {
