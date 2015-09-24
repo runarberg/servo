@@ -13,7 +13,10 @@ use dom::mathmlelement::MathMLElementTypeId;
 use dom::mathmlpresentationelement::{MathMLPresentationElement, MathMLPresentationElementTypeId};
 use dom::node::{Node, NodeTypeId};
 use dom::virtualmethods::VirtualMethods;
+
 use util::str::DOMString;
+
+use std::intrinsics;
 
 #[dom_struct]
 pub struct MathMLPresentationToken {
@@ -27,18 +30,20 @@ impl MathMLPresentationTokenDerived for EventTarget {
                 NodeTypeId::Element(
                     ElementTypeId::MathMLElement(
                         MathMLElementTypeId::MathMLPresentationElement(
-                            MathMLPresentationElementTypeId::MathMLPresentationToken))))
+                            MathMLPresentationElementTypeId::MathMLPresentationToken(
+                                MathMLPresentationTokenTypeId::MathMLPresentationToken)))))
     }
 }
 
 impl MathMLPresentationToken {
-    fn new_inherited(localName: DOMString,
+    pub fn new_inherited(type_id: MathMLPresentationTokenTypeId,
+                     tag_name: DOMString,
                      prefix: Option<DOMString>,
                      document: &Document) -> MathMLPresentationToken {
         MathMLPresentationToken {
             mathmlpresentationelement: MathMLPresentationElement::new_inherited(
-                MathMLPresentationElementTypeId::MathMLPresentationToken,
-                localName, prefix, document)
+                MathMLPresentationElementTypeId::MathMLPresentationToken(type_id),
+                tag_name, prefix, document)
         }
     }
 
@@ -46,8 +51,27 @@ impl MathMLPresentationToken {
     pub fn new(localName: DOMString,
                prefix: Option<DOMString>,
                document: &Document) -> Root<MathMLPresentationToken> {
-        let element = MathMLPresentationToken::new_inherited(localName, prefix, document);
+        let element = MathMLPresentationToken::new_inherited(
+            MathMLPresentationTokenTypeId::MathMLPresentationToken,
+            localName, prefix, document);
         Node::reflect_node(box element, document, MathMLPresentationTokenBinding::Wrap)
+    }
+}
+
+#[derive(JSTraceable, Copy, Clone, Debug, HeapSizeOf)]
+pub enum MathMLPresentationTokenTypeId {
+    MathMLPresentationToken,
+
+    MathMLOperatorElement,
+    MathMLStringLitElement,
+}
+
+impl PartialEq for MathMLPresentationTokenTypeId {
+    #[allow(unsafe_code)]
+    fn eq(&self, other: &MathMLPresentationTokenTypeId) -> bool {
+        unsafe {
+            intrinsics::discriminant_value(self) == intrinsics::discriminant_value(other)
+        }
     }
 }
 

@@ -242,7 +242,7 @@ pub fn vtable_for<'a>(node: &'a Node) -> &'a (VirtualMethods + 'a) {
         }
         NodeTypeId::Element(ElementTypeId::MathMLElement(
             MathMLElementTypeId::MathMLPresentationElement(
-                MathMLPresentationElementTypeId::MathMLPresentationToken))) => {
+                MathMLPresentationElementTypeId::MathMLPresentationToken(_)))) => {
             let element = MathMLPresentationTokenCast::to_ref(node).unwrap();
             element as &'a (VirtualMethods + 'a)
         }

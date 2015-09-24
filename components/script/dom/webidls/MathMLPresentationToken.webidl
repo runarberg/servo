@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 // http://www.w3.org/TR/MathML2/appendixd.html#id.D.1.3.2
-interface MathMLPresentationToken: MathMLPresentationElement {
+interface MathMLPresentationToken : MathMLPresentationElement {
   //          attribute DOMString mathvariant;
   //          attribute DOMString mathsize;
   //          arrtibute DOMString dir;

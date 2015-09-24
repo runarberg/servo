@@ -77,7 +77,9 @@ use dom::htmlunknownelement::HTMLUnknownElement;
 use dom::htmlvideoelement::HTMLVideoElement;
 use dom::mathmlelement::MathMLElement;
 use dom::mathmlmathelement::MathMLMathElement;
+use dom::mathmloperatorelement::MathMLOperatorElement;
 use dom::mathmlpresentationtoken::MathMLPresentationToken;
+use dom::mathmlstringlitelement::MathMLStringLitElement;
 use std::borrow::ToOwned;
 use string_cache::{Atom, QualName};
 
@@ -102,6 +104,8 @@ pub fn create_element(name: QualName, prefix: Option<Atom>,
             atom!("math")  => make!(MathMLMathElement),
             atom!("mi")    => make!(MathMLPresentationToken),
             atom!("mn")    => make!(MathMLPresentationToken),
+            atom!("mo")    => make!(MathMLOperatorElement),
+            atom!("ms")    => make!(MathMLStringLitElement),
             atom!("mtext") => make!(MathMLPresentationToken),
             _              => make!(MathMLElement),
         };

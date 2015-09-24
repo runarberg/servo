@@ -14,6 +14,7 @@ use dom::htmltablecellelement::HTMLTableCellElementTypeId::HTMLTableDataCellElem
 use dom::htmltablecellelement::HTMLTableCellElementTypeId::HTMLTableHeaderCellElement;
 use dom::mathmlelement::MathMLElementTypeId;
 use dom::mathmlpresentationelement::MathMLPresentationElementTypeId;
+use dom::mathmlpresentationtoken::MathMLPresentationTokenTypeId;
 use dom::node::NodeTypeId;
 use libc;
 use util::mem::{HeapSizeOf, heap_size_of};
@@ -252,8 +253,19 @@ pub fn heap_size_of_eventtarget(target: &EventTarget) -> usize {
             heap_size_of_self_and_children(MathMLPresentationElementCast::to_ref(target).unwrap()),
         &EventTargetTypeId::Node(NodeTypeId::Element(
         ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLPresentationElement(
-        MathMLPresentationElementTypeId::MathMLPresentationToken)))) =>
+        MathMLPresentationElementTypeId::MathMLPresentationToken(
+        MathMLPresentationTokenTypeId::MathMLOperatorElement))))) =>
+            heap_size_of_self_and_children(MathMLOperatorElementCast::to_ref(target).unwrap()),
+        &EventTargetTypeId::Node(NodeTypeId::Element(
+        ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLPresentationElement(
+        MathMLPresentationElementTypeId::MathMLPresentationToken(
+        MathMLPresentationTokenTypeId::MathMLPresentationToken))))) =>
             heap_size_of_self_and_children(MathMLPresentationTokenCast::to_ref(target).unwrap()),
+        &EventTargetTypeId::Node(NodeTypeId::Element(
+        ElementTypeId::MathMLElement(MathMLElementTypeId::MathMLPresentationElement(
+        MathMLPresentationElementTypeId::MathMLPresentationToken(
+        MathMLPresentationTokenTypeId::MathMLStringLitElement))))) =>
+            heap_size_of_self_and_children(MathMLStringLitElementCast::to_ref(target).unwrap()),
         &EventTargetTypeId::WebSocket => 0,
         &EventTargetTypeId::Worker => 0,
         &EventTargetTypeId::FileReader => 0,
