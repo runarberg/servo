@@ -3,14 +3,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use dom::bindings::codegen::Bindings::MathMLPresentationTokenBinding;
+use dom::bindings::codegen::Bindings::MathMLPresentationTokenBinding::MathMLPresentationTokenMethods;
+use dom::bindings::codegen::Bindings::NodeBinding::NodeMethods;
 use dom::bindings::codegen::InheritTypes::MathMLPresentationElementCast;
 use dom::bindings::codegen::InheritTypes::MathMLPresentationTokenDerived;
+use dom::bindings::codegen::InheritTypes::NodeCast;
 use dom::bindings::js::Root;
 use dom::document::Document;
 use dom::element::ElementTypeId;
 use dom::eventtarget::{EventTarget, EventTargetTypeId};
 use dom::mathmlelement::MathMLElementTypeId;
 use dom::mathmlpresentationelement::{MathMLPresentationElement, MathMLPresentationElementTypeId};
+use dom::nodelist::NodeList;
 use dom::node::{Node, NodeTypeId};
 use dom::virtualmethods::VirtualMethods;
 
@@ -72,6 +76,15 @@ impl PartialEq for MathMLPresentationTokenTypeId {
         unsafe {
             intrinsics::discriminant_value(self) == intrinsics::discriminant_value(other)
         }
+    }
+}
+
+impl MathMLPresentationTokenMethods for MathMLPresentationToken {
+    // XXX: Should return Root<MathMLNodeList>
+    // http://www.w3.org/TR/MathML2/appendixd.html#id.D.1.3.2
+    fn Contents(&self) -> Root<NodeList> {
+        let node = NodeCast::from_ref(self);
+        node.ChildNodes()
     }
 }
 

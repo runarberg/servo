@@ -8,5 +8,5 @@ interface MathMLPresentationToken : MathMLPresentationElement {
   //          attribute DOMString mathvariant;
   //          attribute DOMString mathsize;
   //          arrtibute DOMString dir;
-  // readonly attribute MathMLNodeList contents;
+  readonly attribute NodeList contents;    // XXX: Should be of type MathMLNodeList
 };
