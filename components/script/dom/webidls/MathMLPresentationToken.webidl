@@ -5,7 +5,7 @@
 
 // http://www.w3.org/TR/MathML2/appendixd.html#id.D.1.3.2
 interface MathMLPresentationToken : MathMLPresentationElement {
-  //          attribute DOMString mathvariant;
+           attribute DOMString mathvariant;
   //          attribute DOMString mathsize;
   //          arrtibute DOMString dir;
   readonly attribute NodeList contents;    // XXX: Should be of type MathMLNodeList
